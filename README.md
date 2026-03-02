@@ -53,3 +53,46 @@ Sygnał wyjściowy, przygotowany do etapu porównania, jest przetwarzany w analo
 Sygnał PWM generowany jest poprzez porównanie napięcia sterującego (sygnału porównawczego) z przebiegiem trójkątnym.
 
 Realizowane jest to za pomocą komparatora, który porównuje chwilową wartość napięcia trójkątnego z wartością napięcia sterującego. W momencie, gdy napięcie sterujące jest wyższe od napięcia przebiegu trójkątnego, na wyjściu komparatora pojawia się stan wysoki. W przeciwnym przypadku wyjście przyjmuje stan niski.
+
+## Przetwornica impulsowa
+![Sixth](resources/Sixth.png)
+Przetwornica impulsowa jest sterowana sygnałem PWM wygenerowanym w poprzednim etapie układu. Sygnał ten kontroluje czas przewodzenia tranzystora kluczującego, a tym samym ilość energii przekazywanej do obciążenia w każdym cyklu pracy.
+
+## Sprzężenie zwrotne
+Podłączenie wyjścia przetwornicy jako źródła zasilania obciążenia powoduje zamknięcie pętli sprzężenia zwrotnego. W takiej konfiguracji układ samoczynnie reguluje swoje parametry pracy w celu utrzymania stałego spadku napięcia na rezystorze pomiarowym.
+
+### Tak stworzony układ wykazuje właściwości stałoprądowe, które można zauważyć w tesach
+
+User = 0.5V
+R obliciążenia = 10k
+I stabilizacji = 757uA
+![Test1](resources/Test1.png)
+
+User = 0.5V
+R obliciążenia = 15k
+I stabilizacji = 753uA
+![Test3](resources/Test3.png)
+
+User = 0.5V
+R obliciążenia = 20k
+I stabilizacji = 750uA
+![Test2](resources/Test2.png)
+
+
+User = 0V
+R obliciążenia = 10k
+I stabilizacji = 610uA
+![Test4](resources/Test4.png)
+
+User = 0V
+R obliciążenia = 20k
+I stabilizacji = 606uA
+![Test4](resources/Test5.png)
+
+User = 0V
+R obliciążenia = 30k
+I stabilizacji = 604uA
+![Test4](resources/Test6.png)
+
+Na podstawie przedstawionych wyników symulacji można zaobserwować nawet trzykrotne zwiększenie wartości obciążenia przy jedynie nieznacznej zmianie prądu płynącego przez obciążenie.
+Dodatkowo widoczny jest wpływ napięcia zadanego „User” na zmianę punktu stabilizacji prądu. Zwiększenie wartości napięcia zadanego powoduje wzrost ustalonej wartości prądu.
