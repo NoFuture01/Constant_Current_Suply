@@ -2,7 +2,9 @@
 Stworzenie zasilacza stałoprądowego utrzymującego stały przepływ ustalonego prądu niezależnie od zmiany obciążenia.
 
 # Schemat blokowy:
-![Diagram](resources/diagram2.png)
+<p align="center">
+  <img src="resources/diagram2.png" width="600">
+</p>
 
 # Zasada działania:
 Układ realizuje pomiar prądu obciążenia poprzez pomiar spadku napięcia na rezystorze pomiarowym (bocznikowym), którego rezystancja jest pomijalnie mała w stosunku do rezystancji obciążenia. Zmierzone napięcie jest następnie wzmacniane w taki sposób, aby przy maksymalnym dopuszczalnym prądzie jego wartość osiągała 2,5 V.
