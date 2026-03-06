@@ -11,51 +11,47 @@ Stworzenie zasilacza stałoprądowego utrzymującego stały przepływ ustalonego
 ## 1) Pomiar spadku napięcia na rezystorze pomiarowym
 ![1](images/1.png)
 <br>
-Pomiar napięcia na rezystorze R2 realizowany jest za pomocą prostego dzielnika napięcia. Zastosowanie rezystorów w takiej konfiguracji umożliwia odczyt napięcia bez konieczności użycia wzmacniacza różnicowego. Dodatkowo rozwiązanie to eliminuje problem podawania na wejście wzmacniacza napięcia większego niż jego napięcie zasilania.
+Pomiar napięcia na rezystorze R2 (dalej Rshunt) realizowany jest za pomocą prostego dzielnika napięcia. Zastosowanie rezystorów w takiej konfiguracji umożliwia odczyt napięcia bez konieczności użycia wzmacniacza różnicowego. Dodatkowo rozwiązanie to eliminuje problem podawania na wejście wzmacniacza napięcia większego niż jego napięcie zasilania.
 
 ## 2) Wzmocnienie napięcia na rezystorze pomiarowym
 ![2](images/21.png)
 <br>
-Wzmocnienie napięcia realizowane jest przez wzmacniacz operacyjny w konfiguracji nieodwracającej, dla której przyjęto wartość wzmocnienia równą 
+Wzmocnienie napięcia realizowane jest przez wzmacniacz operacyjny w konfiguracji nieodwracającej, dla której ustawiono wartość wzmocnienia równą 
 k=25. 
 
 ## 3) Porównanie z napięciem odniesienia
 ![3](images/3.png)
 <br>
-Porównanie napięć realizowane jest za pomocą wzmacniacza operacyjnego pracującego w konfiguracji komparatora. Układ porównuje wzmocnione napięcie z rezystora z ustalonym napięciem odniesienia o wartości 
+Porównanie napięć realizowane jest za pomocą wzmacniacza operacyjnego pracującego w konfiguracji komparatora. Układ porównuje wzmocnione napięcie z rezystora z ustalonym napięciem odniesienia o wartości
 Uref=2,495 V.
 
 ## 4) Przetrzymywanie danych o napięciu rezystora
 ![4](images/4.png)
 <br>
-Informacja o stanie napięcia na rezystorze przechowywana jest w układzie integratora. W przypadku gdy spadek napięcia na rezystorze jest zbyt mały, na wejście integratora podawany jest sygnał prostokątny o amplitudzie 5 V, który jest całkowany. W przeciwnym przypadku na wejście układu podawane jest napięcie 0 V.
+Informacja o stanie napięcia na Rshunt przechowywana jest w układzie integratora. W przypadku gdy spadek napięcia na Rshunt jest zbyt mały, na wejście integratora podawany jest sygnał prostokątny o amplitudzie 5 V, który jest całkowany. W przeciwnym przypadku na wejście układu podawane jest napięcie 0 V.
 
 ## 5) Tworzenie sygnału prosokątnego
 ![5](images/5.png)
 <br>
-Sygnał sterujący przetwornicą impulsową jest generowany poprzez porównanie napięcia z wyjścia integratora z sygnałem trujkątnym. Wzrost napięcia na kondensatorze integratora powoduje zwiększenie współczynnika wypełnienia sygnału PWM, a tym samym wzrost napięcia zasilającego rezystor pomiarowy. Powstałe w ten sposób sprzężenie zwrotne umożliwia regulację napięcia, a w konsekwencji także natężenia prądu płynącego przez rezystor pomiarowy.
+Sygnał sterujący przetwornicą impulsową jest generowany poprzez porównanie napięcia z wyjścia integratora z sygnałem trójkątnym. Wzrost napięcia na kondensatorze integratora powoduje zwiększenie współczynnika wypełnienia sygnału PWM, a tym samym wzrost napięcia zasilającego Rshunt. Powstałe w ten sposób sprzężenie zwrotne umożliwia regulację napięcia, a w konsekwencji także natężenia prądu płynącego przez rezystor pomiarowy.
 
 Dzielnik napięcia przy ostatnim komparatorze ogranicza maksymalne napięcie doprowadzane do jego wejścia. Bez tego elementu napięcie na kondensatorze integratora mogłoby osiągnąć 5 V, co spowodowałoby uzyskanie 100% wypełnienia sygnału PWM. W rezultacie tranzystor kluczujący pozostawałby stale w stanie przewodzenia, co mogłoby doprowadzić do zwarcia zasilania VCC z masą GND.
 
-# Tworzenie napięcie trujkątnego:
+# Tworzenie napięcie trójkątnego:
 ![truj](images/tri.png)
 <br>
-Sygnał trójkątny generowany jest przy użyciu integratora oraz przerzutnika Schmitta.
-
-Kondensator C1 ładuje się przez rezystor R1, co powoduje liniowy wzrost napięcia na jego okładkach. Proces ten trwa do momentu osiągnięcia górnego progu przełączania przerzutnika Schmitta. Po przekroczeniu tej wartości następuje zmiana stanu wyjścia przerzutnika, co powoduje odwrócenie kierunku przepływu prądu w obwodzie integratora.
-
-W konsekwencji kondensator zaczyna się rozładowywać ze stałą szybkością, aż do osiągnięcia dolnego progu przełączania przerzutnika. Po jego przekroczeniu przerzutnik ponownie zmienia stan, a cykl się powtarza.
-
-W rezultacie na kondensatorze C1 otrzymujemy przebieg trójkątny, natomiast na wyjściu przerzutnika Schmitta — przebieg prostokątny o tej samej częstotliwości.
-
-Dzielnik napięcia złożony z rezystorów R2–R3 (zrealizowany w praktyce jako potencjometr) służy do precyzyjnego ustawienia poziomu napięcia sterującego w zakresie od 0 do 2,5 V.
-
-Napięcia "th" oraz "th2" są urzywane do dokładnego ustawienia kształtu sygnału.
+Sygnał trójkątny generowany jest przy użyciu układu integratora oraz przerzutnika Schmitta.
+Kondensator C1 ładuje się przez rezystor 
+R1, co powoduje liniowy wzrost napięcia na jego okładkach. Proces ten trwa do momentu osiągnięcia górnego progu przełączania przerzutnika Schmitta. Po jego przekroczeniu następuje zmiana stanu wyjścia przerzutnika, co odwraca kierunek przepływu prądu w obwodzie integratora.
+W konsekwencji kondensator rozpoczyna rozładowywanie się ze stałą szybkością, aż do osiągnięcia dolnego progu przełączania przerzutnika. Po jego przekroczeniu przerzutnik ponownie zmienia stan, a cykl powtarza się cyklicznie.
+W rezultacie na kondensatorze C1 otrzymujemy przebieg trójkątny, natomiast na wyjściu przerzutnika Schmitta pojawia się przebieg prostokątny o tej samej częstotliwości.
+Dzielnik napięcia złożony z rezystorów R2–R3 (w praktyce zrealizowany jako potencjometr) umożliwia precyzyjne ustawienie poziomunapięcia sterującego w zakresie od 0 do 2,5 V.
+Napięcia oznaczone jako „th” oraz „th2” służą do dokładnego dopasowania kształtu sygnału.
 
 # Przetwornica impulsowa:
 ![imul](images/inpulowa.png)
 <br>
-Przetwornica impulsowa została zrealizowana w możliwie najprostszej topologii układowej.
+Przetwornica impulsowa została zrealizowana w możliwie najprostszej postaci.
 
 # Symulacje układu:
 ## Stałe wartości
