@@ -3,7 +3,7 @@ Stworzenie zasilacza stałoprądowego utrzymującego stały przepływ ustalonego
 
 # Schemat blokowy:
 <p align="center">
-  <img src="images/diagram.png" alt="Circuit Diagram" width="200">
+  <img src="images/diagram2.png" alt="Circuit Diagram" width="200">
 </p>
 
 # Działanie układu:
