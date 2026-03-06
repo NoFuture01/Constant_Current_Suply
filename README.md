@@ -66,4 +66,4 @@ Wyniki tej symulacji potwierdzają poprawne działanie układu. W symulacji anal
 ## Zmienna wartość
 ![sim2](images/sim2.png)
 <br>
-Wyniki symulacji potwierdzają poprawne działanie układu. W przeprowadzonej analizie sprawdzono, czy układ jest w stanie osiągnąć oraz utrzymać stałą wartość prądu pomimo zmiennej rezystancji obciążenia Rload, której wartość zwiększa się stukrotnie w trakcie symulacji. Wyniki pokazują, że układ skutecznie kompensuje zmianę obciążenia i utrzymuje stały prąd.
+Wyniki symulacji potwierdzają poprawne działanie układu. W przeprowadzonej analizie sprawdzono, czy układ jest w stanie osiągnąć oraz utrzymać stałą wartość prądu pomimo zmiennej rezystancji obciążenia Rload, której wartość zwiększa się stukrotnie w trakcie symulacji. Wyniki pokazują, że układ skutecznie kompensuje zmianę obciążenia i utrzymuje stały prąd. 
