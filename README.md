@@ -17,7 +17,7 @@ Pomiar napięcia na rezystorze R2 realizowany jest za pomocą prostego dzielnika
 ![2](images/2.png)
 <br>
 Wzmocnienie napięcia realizowane jest przez wzmacniacz operacyjny w konfiguracji nieodwracającej, dla której przyjęto wartość wzmocnienia równą 
-k=25.
+k=25. 
 
 ## 3) Porównanie z napięciem odniesienia
 ![3](images/3.png)
