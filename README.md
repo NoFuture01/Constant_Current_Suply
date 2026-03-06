@@ -57,7 +57,7 @@ Przetwornica impulsowa została zrealizowana w możliwie najprostszej postaci.
 ## Stałe wartości
 ![sim1](images/sim1.png)
 <br>
-Wyniki tej symulacji potwierdzają poprawne działanie układu. W symulacji analizowano różne wartości rezystancji obciążenia Rload, co skutkowało różnymi początkowymi wartościami prądu w układzie pomiarowym. Niezależnie od warunków początkowych układ dąży do ustalenia spadku napięcia na rezystorze pomiarowym na poziomie 100 mV i utrzymuje tę wartość w stanie ustalonym.
+Wyniki tej symulacji potwierdzają poprawne działanie układu. W symulacji analizowano różne wartości rezystancji obciążenia Rload, co skutkowało różnymi początkowymi wartościami prądu w układzie pomiarowym. Niezależnie od warunków początkowych układ dąży do ustalenia spadku napięcia na Rshunt na poziomie 100 mV i utrzymuje tę wartość w stanie ustalonym.
 
 ## Zmienna wartość
 ![sim2](images/sim2.png)
