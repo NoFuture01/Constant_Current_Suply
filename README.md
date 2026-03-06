@@ -14,7 +14,7 @@ Stworzenie zasilacza stałoprądowego utrzymującego stały przepływ ustalonego
 Pomiar napięcia na rezystorze R2 realizowany jest za pomocą prostego dzielnika napięcia. Zastosowanie rezystorów w takiej konfiguracji umożliwia odczyt napięcia bez konieczności użycia wzmacniacza różnicowego. Dodatkowo rozwiązanie to eliminuje problem podawania na wejście wzmacniacza napięcia większego niż jego napięcie zasilania.
 
 ## 2) Wzmocnienie napięcia na rezystorze pomiarowym
-![2](images/21.png)
+![2](images/2.png)
 <br>
 Wzmocnienie napięcia realizowane jest przez wzmacniacz operacyjny w konfiguracji nieodwracającej, dla której przyjęto wartość wzmocnienia równą 
 k=25. 
