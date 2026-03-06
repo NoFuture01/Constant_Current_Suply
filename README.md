@@ -2,7 +2,9 @@
 Stworzenie zasilacza stałoprądowego utrzymującego stały przepływ ustalonego prądu niezależnie od zmiany obciążenia.
 
 # Schemat blokowy:
-<img src="images/diagram.png" alt="Circuit Diagram" height="1000">
+<p align="center">
+  <img src="images/diagram.png" alt="Circuit Diagram" width="200">
+</p>
 
 # Działanie układu:
 
