@@ -3,23 +3,37 @@ Stworzenie zasilacza stałoprądowego utrzymującego stały przepływ ustalonego
 
 # Schemat blokowy:
 <p align="center">
-  <img src="resources/diagram2.png" width="600">
+  <img src="images/diagram.png" height="600">
 </p>
 
-# Zasada działania:
-Układ realizuje pomiar prądu obciążenia poprzez pomiar spadku napięcia na rezystorze pomiarowym (bocznikowym), którego rezystancja jest pomijalnie mała w stosunku do rezystancji obciążenia. Zmierzone napięcie jest następnie wzmacniane w taki sposób, aby przy maksymalnym dopuszczalnym prądzie jego wartość osiągała 2,5 V.
+# Działanie układu:
 
-Użytkownik ustawia napięcie zadane, odpowiadające żądanej wartości prądu. Napięcie to jest odejmowane od wzmocnionego napięcia pomiarowego. W ten sposób układ regulacji „koryguje” wartość mierzonego prądu, porównując ją z wartością zadaną. Otrzymana różnica napięć reprezentuje uchyb regulacji.
+## 1) Pomiar spadku napięcia na rezystorze pomiarowym
+![1](images/1.png)
+Pomiar napięcia na rezystorze R2 realizowany jest za pomocą prostego dzielnika napięcia. Zastosowanie rezystorów w takiej konfiguracji umożliwia odczyt napięcia bez konieczności użycia wzmacniacza różnicowego. Dodatkowo rozwiązanie to eliminuje problem podawania na wejście wzmacniacza napięcia większego niż jego napięcie zasilania.
 
-Sygnał uchybu jest następnie odejmowany od precyzyjnego napięcia odniesienia o wartości 2,495 V. Tak otrzymane napięcie jest porównywane z chwilową wartością napięcia o przebiegu trójkątnym w zakresie 0–2,5 V. W wyniku tego porównania powstaje sygnał prostokątny PWM, którego współczynnik wypełnienia zależy od wartości napięcia sterującego – im bliżej napięcia odniesienia znajduje się sygnał porównywany, tym większe jest wypełnienie sygnału PWM.
+## 2) Wzmocnienie napięcia na rezystorze pomiarowym
+![2](images/2.png)
+Wzmocnienie napięcia realizowane jest przez wzmacniacz operacyjny w konfiguracji nieodwracającej, dla której przyjęto wartość wzmocnienia równą 
+k=25.
 
-Wygenerowany sygnał PWM steruje bramką tranzystora NMOS, który reguluje czas przewodzenia w przetwornicy impulsowej, a tym samym czas ładowania cewki.
+## 3) Porównanie z napięciem odniesienia
+![3](images/3.png)
+Porównanie napięć realizowane jest za pomocą wzmacniacza operacyjnego pracującego w konfiguracji komparatora. Układ porównuje wzmocnione napięcie z rezystora z ustalonym napięciem odniesienia o wartości 
+Uref=2,495 V.
 
-W przypadku zwiększenia obciążenia spadek napięcia na rezystorze pomiarowym maleje, co powoduje zmianę napięcia uchybu. W konsekwencji zwiększa się współczynnik wypełnienia sygnału PWM. Powoduje to wydłużenie czasu przewodzenia tranzystora, wzrost energii magazynowanej w cewce oraz podniesienie napięcia wyjściowego przetwornicy. W efekcie wzrasta prąd płynący przez obciążenie, co prowadzi do przywrócenia zadanej wartości prądu.
+## 4) Przetrzymywanie danych o napięciu rezystora
+![4](images/4.png)
+Informacja o stanie napięcia na rezystorze przechowywana jest w układzie integratora. W przypadku gdy spadek napięcia na rezystorze jest zbyt mały, na wejście integratora podawany jest sygnał prostokątny o amplitudzie 5 V, który jest całkowany. W przeciwnym przypadku na wejście układu podawane jest napięcie 0 V.
 
-# Symulacje układu
-## Utowrzenie sygnału trujkątnego:
-![Trujkąt](resources/tri.png)
+## 5) Tworzenie sygnału prosokątnego
+![5](images/5.png)
+Sygnał sterujący przetwornicą impulsową jest generowany poprzez porównanie napięcia z wyjścia integratora z sygnałem trujkątnym. Wzrost napięcia na kondensatorze integratora powoduje zwiększenie współczynnika wypełnienia sygnału PWM, a tym samym wzrost napięcia zasilającego rezystor pomiarowy. Powstałe w ten sposób sprzężenie zwrotne umożliwia regulację napięcia, a w konsekwencji także natężenia prądu płynącego przez rezystor pomiarowy.
+
+Dzielnik napięcia przy ostatnim komparatorze ogranicza maksymalne napięcie doprowadzane do jego wejścia. Bez tego elementu napięcie na kondensatorze integratora mogłoby osiągnąć 5 V, co spowodowałoby uzyskanie 100% wypełnienia sygnału PWM. W rezultacie tranzystor kluczujący pozostawałby stale w stanie przewodzenia, co mogłoby doprowadzić do zwarcia zasilania VCC z masą GND.
+
+# Tworzenie napięcie trujkątnego:
+![truj](images/tri.png)
 Sygnał trójkątny generowany jest przy użyciu integratora oraz przerzutnika Schmitta.
 
 Kondensator C1 ładuje się przez rezystor R1, co powoduje liniowy wzrost napięcia na jego okładkach. Proces ten trwa do momentu osiągnięcia górnego progu przełączania przerzutnika Schmitta. Po przekroczeniu tej wartości następuje zmiana stanu wyjścia przerzutnika, co powoduje odwrócenie kierunku przepływu prądu w obwodzie integratora.
@@ -32,69 +46,15 @@ Dzielnik napięcia złożony z rezystorów R2–R3 (zrealizowany w praktyce jako
 
 Napięcia "th" oraz "th2" są urzywane do dokładnego ustawienia kształtu sygnału.
 
-## Zmnierzenie natężenia prądu w układie:
-![First](resources/First.png)
-Pomiar prądu realizowany jest z wykorzystaniem wzmacniacza różnicowego. Układ ten umożliwia precyzyjne wyznaczenie spadku napięcia na rezystorze pomiarowym R1, proporcjonalnego do wartości płynącego prądu.
+# Przetwornica impulsowa:
+![imul](images/inpulowa.png)
+Przetwornica impulsowa została zrealizowana w możliwie najprostszej topologii układowej.
 
-Na potrzeby przeprowadzenia symulacji zmian napięcia na rezystorze pomiarowym rzeczywisty rezystor został zastąpiony źródłem napięcia o przebiegu narastającym w czasie.
+# Symulacje układu:
+## Stałe wartości
+![sim1](images/sim1.png)
+Wyniki tej symulacji potwierdzają poprawne działanie układu. W symulacji analizowano różne wartości rezystancji obciążenia Rload, co skutkowało różnymi początkowymi wartościami prądu w układzie pomiarowym. Niezależnie od warunków początkowych układ dąży do ustalenia spadku napięcia na rezystorze pomiarowym na poziomie 100 mV i utrzymuje tę wartość w stanie ustalonym.
 
-## Wzmocnienie sygnału natężenia:
-![Secound](resources/Secound.png)
-Wzmocnienie sygnału realizowane jest za pomocą wzmacniacza operacyjnego w konfiguracji nieodwracającej. Taka topologia pozwala na zwiększenie amplitudy sygnału bez zmiany jego polaryzacji.
-
-## Wprowadzenie wkładu urzytkownika:
-![Third](resources/Thrid.png)
-Sygnał wprowadzany przez użytkownika jest przetwarzany w analogiczny sposób jak sygnał pomiarowy z rezystora bocznikowego.
-
-## Uzyskanie sygnału do porównania:
-![Forth](resources/Forth.png)
-Sygnał wyjściowy, przygotowany do etapu porównania, jest przetwarzany w analogiczny sposób jak pozostałe sygnały regulacji.
-
-## Końcowy sygnał:
-![Fifth](resources/Fifth.png)
-Sygnał PWM generowany jest poprzez porównanie napięcia sterującego (sygnału porównawczego) z przebiegiem trójkątnym.
-
-Realizowane jest to za pomocą komparatora, który porównuje chwilową wartość napięcia trójkątnego z wartością napięcia sterującego. W momencie, gdy napięcie sterujące jest wyższe od napięcia przebiegu trójkątnego, na wyjściu komparatora pojawia się stan wysoki. W przeciwnym przypadku wyjście przyjmuje stan niski.
-
-## Przetwornica impulsowa
-![Sixth](resources/Sixth.png)
-Przetwornica impulsowa jest sterowana sygnałem PWM wygenerowanym w poprzednim etapie układu. Sygnał ten kontroluje czas przewodzenia tranzystora kluczującego, a tym samym ilość energii przekazywanej do obciążenia w każdym cyklu pracy.
-
-## Sprzężenie zwrotne
-Podłączenie wyjścia przetwornicy jako źródła zasilania obciążenia powoduje zamknięcie pętli sprzężenia zwrotnego. W takiej konfiguracji układ samoczynnie reguluje swoje parametry pracy w celu utrzymania stałego spadku napięcia na rezystorze pomiarowym.
-
-### Tak stworzony układ wykazuje właściwości stałoprądowe, które można zauważyć w tesach
-
-User = 0.5V
-R obliciążenia = 10k
-I stabilizacji = 757uA
-![Test1](resources/Test1.png)
-
-User = 0.5V
-R obliciążenia = 15k
-I stabilizacji = 753uA
-![Test3](resources/Test3.png)
-
-User = 0.5V
-R obliciążenia = 20k
-I stabilizacji = 750uA
-![Test2](resources/Test2.png)
-
-
-User = 0V
-R obliciążenia = 10k
-I stabilizacji = 610uA
-![Test4](resources/Test4.png)
-
-User = 0V
-R obliciążenia = 20k
-I stabilizacji = 606uA
-![Test4](resources/Test5.png)
-
-User = 0V
-R obliciążenia = 30k
-I stabilizacji = 604uA
-![Test4](resources/Test6.png)
-
-Na podstawie przedstawionych wyników symulacji można zaobserwować nawet trzykrotne zwiększenie wartości obciążenia przy jedynie nieznacznej zmianie prądu płynącego przez obciążenie.
-Dodatkowo widoczny jest wpływ napięcia zadanego „User” na zmianę punktu stabilizacji prądu. Zwiększenie wartości napięcia zadanego powoduje wzrost ustalonej wartości prądu.
+## Zmienna wartość
+![sim2](images/sim2.png)
+Wyniki symulacji potwierdzają poprawne działanie układu. W przeprowadzonej analizie sprawdzono, czy układ jest w stanie osiągnąć oraz utrzymać stałą wartość prądu pomimo zmiennej rezystancji obciążenia Rload, której wartość zwiększa się stukrotnie w trakcie symulacji. Wyniki pokazują, że układ skutecznie kompensuje zmianę obciążenia i utrzymuje stały prąd.
