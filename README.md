@@ -62,4 +62,15 @@ Wyniki tej symulacji potwierdzają poprawne działanie układu. W symulacji anal
 ## Zmienna wartość
 ![sim2](images/sim2.png)
 <br>
-Wyniki symulacji potwierdzają poprawne działanie układu. W przeprowadzonej analizie sprawdzono, czy układ jest w stanie osiągnąć oraz utrzymać stałą wartość prądu pomimo zmiennej rezystancji obciążenia Rload, której wartość zwiększa się stukrotnie w trakcie symulacji. Wyniki pokazują, że układ skutecznie kompensuje zmianę obciążenia i utrzymuje stały prąd.  
+Wyniki symulacji potwierdzają poprawne działanie układu. W przeprowadzonej analizie sprawdzono, czy układ jest w stanie osiągnąć oraz utrzymać stałą wartość prądu pomimo zmiennej rezystancji obciążenia Rload, której wartość zwiększa się stukrotnie w trakcie symulacji. Wyniki pokazują, że układ skutecznie kompensuje zmianę obciążenia i utrzymuje stały prąd.
+
+## Zmiana ustawienia wartości prądu:
+## Sposób pierwszy
+![6](images/6.png)
+<br>
+Wartość spadku napięcia na rezystorze pomiarowym Rshunt, którą układ stara się utrzymać, może być zmieniona poprzez dodanie wzmacniacza różnicowego. Wzmacniacz ten odejmuje napięcie wprowadzone przez urzytkownika od wzmocnionego sygnału z Rshunt, co w praktyce powoduje zaniżenie odczytywanego spadku napięcia. W rezultacie układ zwiększa natężenie prądu w obwodzie.
+
+## Sposób drugi
+![7](images/7.png)
+<br>
+Zwiększenie lub zmniejszenie punktu spadku napięcia utrzymywanego na rezystorze pomiarowym Rshunt można również uzyskać poprzez zmianę wzmocnienia wzmacniacza sygnału pochodzącego z Rshunt. W ten sposób odczytywany spadek napięcia jest zaniżany lub zawyżany względem jego rzeczywistej wartości, co pozwala układowi regulować natężenie prądu w obwodzie zgodnie z żądanym punktem pracy.
